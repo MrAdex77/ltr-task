@@ -8,20 +8,33 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import {useAuth} from '../../context/AuthContext';
 import {LoginScreenProps} from '../../navigation/types';
+import {login} from '../../services/api';
+import {ApiError} from '../../types/common';
 
-const LoginScreen: React.FC<LoginScreenProps> = ({navigation}) => {
+const LoginScreen: React.FC<LoginScreenProps> = ({}) => {
+  const {setToken, setUser} = useAuth();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const handleLogin = () => {
-    if (!email || !password) {
-      Alert.alert('Error', 'Please enter both email and password');
-      return;
+  const handleLogin = async () => {
+    try {
+      if (!email || !password) {
+        Alert.alert('Error', 'Please enter both email and password');
+        return;
+      }
+      const {user, token} = await login(email, password);
+      setToken(token);
+      setUser(user);
+      Alert.alert('Success', `Logged in as ${email}`);
+    } catch (error) {
+      if (error instanceof ApiError) {
+        Alert.alert('Login Failed', error.message);
+      } else {
+        Alert.alert('Error', 'Unexpected error occurred');
+      }
     }
-    // TODO: call your auth API here
-    Alert.alert('Success', `Logged in as ${email}`);
-    // navigation.replace('Home')
   };
 
   return (
@@ -69,6 +82,7 @@ const styles = StyleSheet.create({
   input: {
     height: 48,
     borderColor: '#ccc',
+    color: '#333',
     borderWidth: 1,
     borderRadius: 6,
     paddingHorizontal: 12,
