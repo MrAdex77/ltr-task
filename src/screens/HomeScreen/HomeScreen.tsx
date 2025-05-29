@@ -11,13 +11,13 @@ const HomeScreen: React.FC = () => {
   useEffect(() => {
     if (token) {
       const socket = connectSocket(token);
-      joinLobbyChannel(socket, msg => {
+      const channel = joinLobbyChannel(socket, msg => {
         setAnnouncement(msg);
       });
       return () => {
-        if (socket) {
-          socket.disconnect();
-        }
+        channel.off('announcement');
+        channel.leave();
+        socket.disconnect();
       };
     }
   }, [token]);
