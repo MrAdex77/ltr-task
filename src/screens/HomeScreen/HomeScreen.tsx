@@ -1,14 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {useAuth} from '../../context/AuthContext';
-import {connectSocket, joinLobbyChannel} from '../../services/socket';
-import {AnnouncementPayload} from '../../types/common';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { useAuth } from '../../context/AuthContext';
+import { connectSocket, joinLobbyChannel } from '../../services/socket';
+import { AnnouncementPayload } from '../../types/common';
 
 const HomeScreen: React.FC = () => {
-  const {token, user} = useAuth();
-  const [announcement, setAnnouncement] = useState<AnnouncementPayload | null>(
-    null,
-  );
+  const { token, user } = useAuth();
+  const [announcement, setAnnouncement] = useState<AnnouncementPayload | null>(null);
 
   useEffect(() => {
     if (token) {
@@ -47,9 +45,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
   },
-  label: {fontWeight: 'bold', marginBottom: 10, fontSize: 18},
-  message: {fontSize: 16, marginBottom: 8},
-  numbers: {fontSize: 16, fontWeight: '600'},
+  label: { fontWeight: 'bold', marginBottom: 10, fontSize: 18 },
+  message: { fontSize: 16, marginBottom: 8 },
+  numbers: { fontSize: 16, fontWeight: '600' },
 });
 
 export default HomeScreen;

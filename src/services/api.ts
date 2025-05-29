@@ -1,6 +1,6 @@
-import {API_URL} from '@env';
-import axios, {AxiosError} from 'axios';
-import {ApiError, LoginResponse} from '../types/common';
+import { API_URL } from '@env';
+import axios, { AxiosError } from 'axios';
+import { ApiError, LoginResponse } from '../types/common';
 
 export const login = async (email: string, password: string) => {
   try {
@@ -10,7 +10,7 @@ export const login = async (email: string, password: string) => {
     });
     return response.data.data;
   } catch (error) {
-    const axiosError = error as AxiosError<{error: {message: string}}>;
+    const axiosError = error as AxiosError<{ error: { message: string } }>;
     const msg = axiosError.response?.data?.error?.message || 'Login failed';
     throw new ApiError(msg);
   }

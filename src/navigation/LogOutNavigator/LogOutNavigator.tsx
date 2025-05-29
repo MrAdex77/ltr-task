@@ -1,7 +1,7 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../../screens/LoginScreen/LoginScreen';
-import {Routes} from '../routes';
-import {LogOutStackParamList} from '../types';
+import { Routes } from '../routes';
+import { LogOutStackParamList } from '../types';
 
 const LogOutStack = createNativeStackNavigator<LogOutStackParamList>();
 

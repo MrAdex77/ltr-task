@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Alert,
   KeyboardAvoidingView,
@@ -8,13 +8,13 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import {useAuth} from '../../context/AuthContext';
-import {LoginScreenProps} from '../../navigation/types';
-import {login} from '../../services/api';
-import {ApiError} from '../../types/common';
+import { useAuth } from '../../context/AuthContext';
+import { LoginScreenProps } from '../../navigation/types';
+import { login } from '../../services/api';
+import { ApiError } from '../../types/common';
 
 const LoginScreen: React.FC<LoginScreenProps> = ({}) => {
-  const {setToken, setUser} = useAuth();
+  const { setToken, setUser } = useAuth();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
@@ -24,7 +24,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({}) => {
         Alert.alert('Error', 'Please enter both email and password');
         return;
       }
-      const {user, token} = await login(email, password);
+      const { user, token } = await login(email, password);
       setToken(token);
       setUser(user);
       Alert.alert('Success', `Logged in as ${email}`);
